@@ -1,0 +1,13 @@
+.roster-list {
+   border: 1px solid #ccc;
+   padding: 0;
+   font-size: 14px;
+}
+
+.roster-list>div {
+   border-bottom: 1px solid #ccc;
+}
+
+.roster-list>div:last-child {
+   border-bottom: none;
+}

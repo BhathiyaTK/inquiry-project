@@ -1,0 +1,142 @@
+<section class="all-users-content w-full">
+   <div [ngClass]="{'w-75' : isOptionsPanelOpen,'w-full' : !isOptionsPanelOpen}">
+      <section *ngIf="adminUsersList.length > 0">
+         <h2 class="nunito" style="margin-top: 0; margin-bottom: 10px;">Admin Users</h2>
+         <div class="flex flex-row justify-between align-items-center list-block"
+            *ngFor="let aUser of adminUsersList; let i = index;">
+            <div class="list-info">
+               <h4 class="capitalize m-0">{{aUser.name}}</h4>
+               <small style="color: #666;">{{aUser.email}}</small>&nbsp;&nbsp;|&nbsp;&nbsp;
+               <small [ngClass]="{'available' : aUser.status === 0, 'not-available' : aUser.status === 1}">
+                  {{aUser.status === 0 ? 'Available' : 'NotAvailable'}}
+               </small>
+            </div>
+            <div class="list-options">
+
+            </div>
+         </div>
+      </section>
+      <ng-container *ngIf="adminUsersList.length > 0">
+         <br><br>
+      </ng-container>
+      <section>
+         <h2 class="nunito" style="margin-top: 0; margin-bottom: 10px;">Permanent Users</h2>
+         <div *ngIf="permanentLoading" class="my-15">
+            loading...
+         </div>
+         <ng-container *ngIf="permanentUsersList.length > 0">
+            <div class="flex flex-row justify-between align-items-center list-block"
+               *ngFor="let pUser of permanentUsersList; let i = index;">
+               <div class="list-info">
+                  <h4 class="capitalize m-0">{{pUser.name}}</h4>
+                  <small style="color: #666;">{{pUser.email}}</small>&nbsp;&nbsp;|&nbsp;&nbsp;
+                  <small [ngClass]="{'available' : pUser.status === 0, 'not-available' : pUser.status === 1}">
+                     {{pUser.status === 0 ? 'Available' : 'NotAvailable'}}
+                  </small>
+               </div>
+               <div class="list-options" *ngIf="auth.currentUser.userRole !== '2'">
+                  <button *ngIf="auth.currentUser.userRole === '2'"
+                     (click)="showPayslips(pUser); isOptionsPanelOpen = true;" class="material-symbols-outlined"
+                     title="Add Payslip">
+                     post_add
+                  </button>
+                  <button (click)="showRosters(pUser); isOptionsPanelOpen = true;"
+                     class="material-symbols-outlined mx-20" title="Add Roster">
+                     calendar_add_on
+                  </button>
+                  <button *ngIf="auth.currentUser.userRole === '1'"
+                     (click)="showFeedback(pUser); isOptionsPanelOpen = true;" class="material-symbols-outlined"
+                     title="Add Feedback">
+                     add_comment
+                  </button>
+               </div>
+            </div>
+         </ng-container>
+      </section>
+      <ng-container *ngIf="permanentUsersList.length > 0">
+         <br><br>
+      </ng-container>
+      <section>
+         <h2 class="nunito" style="margin-top: 0; margin-bottom: 10px;">Casual Users</h2>
+         <div *ngIf="casualLoading" class="my-15">
+            loading...
+         </div>
+         <ng-container *ngIf="casualUsersList.length > 0">
+            <div class="flex flex-row justify-between align-items-center list-block"
+               *ngFor="let cUser of casualUsersList; let i = index;">
+               <div class="list-info">
+                  <h4 class="capitalize m-0">{{cUser.name}}</h4>
+                  <small style="color: #666;">{{cUser.email}}</small>&nbsp;&nbsp;|&nbsp;&nbsp;
+                  <small [ngClass]="{'available' : cUser.status === 0, 'not-available' : cUser.status === 1}">
+                     {{cUser.status === 0 ? 'Available' : 'NotAvailable'}}
+                  </small>
+               </div>
+               <div class="list-options">
+                  <button *ngIf="auth.currentUser.userRole === '2'"
+                     (click)="showPayslips(cUser); isOptionsPanelOpen = true;" class="material-symbols-outlined"
+                     title="Add Payslip">
+                     post_add
+                  </button>
+                  <button (click)="showRosters(cUser); isOptionsPanelOpen = true;"
+                     class="material-symbols-outlined mx-20" title="Add Roster">
+                     calendar_add_on
+                  </button>
+                  <button *ngIf="auth.currentUser.userRole === '1'"
+                     (click)="showFeedback(cUser); isOptionsPanelOpen = true;" class="material-symbols-outlined"
+                     title="Add Feedback">
+                     add_comment
+                  </button>
+               </div>
+            </div>
+         </ng-container>
+      </section>
+   </div>
+   <div class="w-25 pl-15" *ngIf="isOptionsPanelOpen">
+      <div class="option-templates p-8 h-full">
+         <ng-container [ngTemplateOutlet]="template"></ng-container>
+      </div>
+   </div>
+</section>
+
+
+<ng-template #payslips>
+   <div class="p-8">
+      <div class="option-template-title">
+         <h3 class="m-0">Add a Payslip</h3>
+         <button (click)="isOptionsPanelOpen = false; isPayslipClick = !isPayslipClick">
+            <span class="material-symbols-outlined">
+               close
+            </span>
+         </button>
+      </div>
+      <app-pay-slips [userInfo]="userInfo"></app-pay-slips>
+   </div>
+</ng-template>
+
+<ng-template #roster>
+   <div class="p-8">
+      <div class="option-template-title">
+         <h3 class="m-0">Add a Roster</h3>
+         <button (click)="isOptionsPanelOpen = false; isRosterClick = !isRosterClick">
+            <span class="material-symbols-outlined">
+               close
+            </span>
+         </button>
+      </div>
+      <app-rosters [userInfo]="userInfo"></app-rosters>
+   </div>
+</ng-template>
+
+<ng-template #feedback>
+   <div class="p-8">
+      <div class="option-template-title">
+         <h3 class="m-0">Add a Feedback</h3>
+         <button (click)="isOptionsPanelOpen = false; isFeedbackClick = !isFeedbackClick">
+            <span class="material-symbols-outlined">
+               close
+            </span>
+         </button>
+      </div>
+      <app-feedback [userInfo]="userInfo"></app-feedback>
+   </div>
+</ng-template>

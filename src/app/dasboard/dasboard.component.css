@@ -1,0 +1,79 @@
+.welcome-box {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   font-family: 'Nunito', sans-serif;
+   background-color: white;
+   padding: 15px;
+   margin: 30px 0;
+   box-shadow: 0px 6px 15px 0px #807f7f25;
+}
+
+.welcome-content {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   gap: 20px;
+}
+
+.welcome-content .welcome-text>h1 {
+   font-weight: 700;
+   margin: 0;
+}
+
+.welcome-content .welcome-icon>img {
+   width: 50px;
+}
+
+.welcome-box .user-details {
+   text-align: right;
+}
+
+.welcome-box .user-details .user-role {
+   font-weight: 800;
+   background-color: aqua;
+   padding: 5px 15px;
+   margin-bottom: 5px;
+}
+
+/* Dashboard */
+
+.dashboard-content {
+   display: flex;
+   flex-direction: row;
+}
+
+.dashboard-content .side-panel {
+   width: 20%;
+}
+
+.dashboard-content .main-content {
+   width: 80%;
+}
+
+.dashboard-content .side-panel>a {
+   text-decoration: none;
+}
+
+.dashboard-content .side-panel>a>div {
+   padding: 25px 40px;
+   background-color: rgb(255, 255, 255);
+   border-right: 1px solid #ddd;
+   border-bottom: 1px solid #ddd;
+}
+
+.dashboard-content .side-panel>a.active>div {
+   font-weight: 600;
+   background-color: aqua;
+}
+
+.dashboard-content .side-panel>a:hover>div {
+   background-color: rgb(188, 253, 231);
+}
+
+.main-content {
+   padding: 20px;
+   background-color: white;
+   margin-bottom: 30px;
+}

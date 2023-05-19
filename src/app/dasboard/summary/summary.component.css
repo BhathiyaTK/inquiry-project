@@ -1,0 +1,24 @@
+.dashboard-item {
+   padding: 20px;
+   border: 1px solid #ccc;
+   margin-right: 20px;
+   margin-bottom: 20px;
+}
+
+.dashboard-item:last-child {
+   margin-right: 0;
+}
+
+.dashboard-item .item-icon>span {
+   font-size: 100px;
+   color: rgb(7, 168, 168);
+}
+
+.dashboard-item .item-text>div {
+   font-size: 50px;
+   font-weight: 700;
+}
+
+.dashboard-item .item-text>span {
+   color: #666;
+}

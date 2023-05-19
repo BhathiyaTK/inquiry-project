@@ -1,0 +1,47 @@
+<div class="my-15">
+   <small>User ID: {{userInfo.id ?? userInfo.userId}}</small><br>
+   <small>User Name: <strong><span class="capitalize">{{userInfo.name ?? userInfo.userName}}</span></strong></small><br>
+</div>
+<div>
+   <form [formGroup]="rosterForm">
+      <label for="fromDateTime">From</label>
+      <input #fromDate type="datetime-local" formControlName="fromDateTime" id="fromDateTime" class="my-8"
+         [min]="minDate" [max]="maxDate">
+      <label for="toDateTime">To</label>
+      <input #toDate type="datetime-local" formControlName="toDateTime" id="toDateTime" class="my-8" [min]="minDate"
+         [max]="maxDate">
+      <button class="primary-btn mt-10" type="button"
+         (click)="createRosterList({fromDateTime: fromDate.value, toDateTime: toDate.value}); rosterForm.reset()"
+         [ngClass]="{'disabled' : !fromDate.value || !toDate.value}"
+         [disabled]="!fromDate.value || !toDate.value">Add</button>
+   </form>
+</div>
+<br>
+<div *ngIf="rosterList.length > 0">
+   <small>Rosters:</small>
+   <div class="roster-list">
+      <div *ngFor="let roster of rosterList; let i = index;">
+         <div class="flex flex-row align-items-center">
+            <div style="border-right: 1px solid #ccc; padding: 15px 5px;">{{i + 1}}</div>
+            <div class="flex flex-row justify-between align-items-center w-full" style="padding: 5px 10px">
+               <div>
+                  <div><strong>From: </strong>{{roster.fromDateTime | date:'d/MM/yyyy, h:mm a'}}</div>
+                  <div><strong>To: </strong>{{roster.toDateTime | date:'d/MM/yyyy, h:mm a'}}</div>
+               </div>
+               <button (click)="removeRoster(i)" title="Romove">
+                  <span class="material-symbols-outlined">
+                     close
+                  </span>
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="my-8">
+      <button (click)="addRoster()" class="primary-btn mt-10 w-full" type="button">Submit Roster</button>
+   </div>
+</div>
+<div *ngIf="isAlertShow" class="signup-alert"
+   [ngClass]="{'success': rosterResponse.status === true, 'error': rosterResponse.status === false}">
+   {{rosterResponse.message}}
+</div>

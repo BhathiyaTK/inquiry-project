@@ -1,0 +1,26 @@
+<div class="my-15">
+   <small>User ID: {{userInfo.id}}</small><br>
+   <small>Employee: <strong><span class="capitalize">{{userInfo.name}}</span></strong></small><br>
+</div>
+
+<div *ngIf="isAlertShow" class="signup-alert"
+   [ngClass]="{'success': feedbackAddResponse.status === true, 'error': feedbackAddResponse.status === false}">
+   {{feedbackAddResponse.message}}
+</div>
+
+<form (ngSubmit)="feedbackId ? submitFeedback(true) : submitFeedback(false)" [formGroup]="feedbackForm">
+   <label for="rating">Rating</label>
+   <select formControlName="rating" id="rating" class="mt-8 mb-15">
+      <option value="1">1 out of 5</option>
+      <option value="2">2 out of 5</option>
+      <option value="3">3 out of 5</option>
+      <option value="4">4 out of 5</option>
+      <option value="5">5 out of 5</option>
+   </select>
+   <label for="feedback">Description</label>
+   <textarea formControlName="feedback" id="feedback" class="w-full my-8" cols="30" rows="5"></textarea>
+   <button class="primary-btn mt-10" type="submit" [ngClass]="{'disabled' : isAdding || feedbackForm.invalid}"
+      [disabled]="feedbackForm.invalid || isAdding">
+      {{feedbackForm.get('feedback')?.value ? 'Update' : 'Submit'}}
+   </button>
+</form>

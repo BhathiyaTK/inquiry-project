@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+
+<div class="container content-area">
+   <div class="form-content">
+      <div class="form-area">
+         <div class="form-title">
+            Sign Up
+         </div>
+         <div class="user-types">
+            <small>— Select your staff type —</small>
+            <div class="user-select-options">
+               <div class="user-toggle-option">
+                  <a routerLink="permenant-staff" routerLinkActive="active-user-type">Permenant Staff</a>
+               </div>
+               <div class="user-toggle-option">
+                  <a routerLink="casual-staff" routerLinkActive="active-user-type">Casual Staff</a>
+               </div>
+            </div>
+         </div>
+         <router-outlet></router-outlet>
+      </div>
+   </div>
+</div>

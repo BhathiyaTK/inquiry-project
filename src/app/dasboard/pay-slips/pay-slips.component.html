@@ -1,0 +1,19 @@
+<div class="my-15">
+   <small>Payslip ID: {{userInfo.id ?? userInfo.userId}}</small><br>
+   <small>Employee: <strong><span class="capitalize">{{userInfo.name ?? userInfo.userName}}</span></strong></small><br>
+</div>
+
+<form (ngSubmit)="addPayslip()" [formGroup]="paySlipForm">
+   <label for="hours">Number of Working Hours</label>
+   <select name="hours" id="hours" formControlName="workHours" class="my-8">
+      <option value="">Select number of hours</option>
+      <option *ngFor="let option of hoursList" [value]="option.value">{{option.key}}</option>
+   </select>
+   <button class="primary-btn mt-10" type="submit" [ngClass]="{'disabled' : isAdding || paySlipForm.invalid}"
+      [disabled]="paySlipForm.invalid || isAdding">Add</button>
+</form>
+<br>
+<div *ngIf="isAlertShow" class="signup-alert"
+   [ngClass]="{'success': payslipAddResponse.status === true, 'error': payslipAddResponse.status === false}">
+   {{payslipAddResponse.message}}
+</div>

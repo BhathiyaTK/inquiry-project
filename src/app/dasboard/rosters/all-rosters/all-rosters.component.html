@@ -1,0 +1,95 @@
+<section>
+   <div class="flex flex-row justify-between align-items-center mb-10"
+      [ngClass]="{'pb-10' : rostersList.length === 0 && !rostersLoading}"
+      [style.border-bottom]="rostersList.length === 0 && !rostersLoading ? '1px solid #ccc' : 'none'">
+      <h2 class="nunito my-0">Rosters</h2>
+      <button (click)="openRightPanel(auth.currentUser, false); openEditSec = false; isRosterAdd = true"
+         title="Edit Payslip" class="flex flex-row align-items-center primary-btn">
+         <span class="material-symbols-outlined mr-5">add</span>Add New
+      </button>
+   </div>
+   <div *ngIf="rostersLoading" class="my-15">
+      loading...
+   </div>
+   <div class="flex flex-row w-full">
+      <div *ngIf="rostersList.length === 0 && !rostersLoading" class="w-75 my-15">
+         No rosters found.
+      </div>
+      <div *ngIf="rostersList.length > 0"
+         [ngClass]="{'w-75': openEditSec || isRosterAdd, 'w-full': !openEditSec || !isRosterAdd}">
+         <div class="flex flex-row justify-between align-items-center list-block"
+            *ngFor="let ps of rostersList; let i = index;">
+            <div class="flex flex-row align-items-center">
+               <div class="list-info" style="margin-right: 50px;">
+                  <h4 class="capitalize m-0">{{ps.name}}</h4>
+                  <small style="color: #666;">{{ps.email}}</small>
+               </div>
+               <div class="mx-20">
+                  <small>From: <strong>{{ps.fromDateTime | date:'d/MM/yyyy, h:mm a'}}</strong></small>
+               </div>
+               <div class="mx-20">
+                  <small>To: <strong>{{ps.toDateTime | date:'d/MM/yyyy, h:mm a'}}</strong></small>
+               </div>
+            </div>
+            <div class="list-options">
+               <button (click)="openRightPanel(ps, true); openEditSec = true; isRosterAdd = false"
+                  class="material-symbols-outlined" title="Edit Payslip">
+                  edit
+               </button>
+            </div>
+         </div>
+      </div>
+      <div class="w-25 pl-15" *ngIf="isOptionsPanelOpen">
+         <div class="option-templates p-8 h-full">
+            <ng-template [ngTemplateOutlet]="isRosterAdd ? rosterAdd : rosterEdit"></ng-template>
+         </div>
+      </div>
+      <ng-template #rosterEdit>
+         <div *ngIf="openEditSec" class="mt-0 p-8">
+            <div class="flex flex-row justify-between align-items-center edit-box-title mb-20">
+               <h3 class="my-0">Edit Roster</h3>
+               <button (click)="openEditSec = false; isOptionsPanelOpen = false;">
+                  <span class="material-symbols-outlined">
+                     close
+                  </span>
+               </button>
+            </div>
+            <div *ngIf="isAlertShow" class="signup-alert mb-15"
+               [ngClass]="{'success': rosterUpdateResponse.status === true, 'error': rosterUpdateResponse.status === false}">
+               {{rosterUpdateResponse.message}}
+            </div>
+            <div class="mb-20">
+               <small>Roster ID: {{selectedRoster.id}}</small><br>
+               <small>Employee: <strong><span class="capitalize">{{selectedRoster.name}}</span></strong></small>
+            </div>
+            <div class="pb-15">
+               <form (ngSubmit)="updateRoster()" [formGroup]="rosterUpdateForm">
+                  <label for="fromDateTime">From:</label>
+                  <input type="datetime-local" formControlName="fromDateTime" id="fromDateTime" class="my-8"
+                     [min]="minDate" [max]="maxDate">
+                  <label for="toDateTime">To:</label>
+                  <input type="datetime-local" formControlName="toDateTime" id="toDateTime" class="my-8" [min]="minDate"
+                     [max]="maxDate">
+                  <input type="hidden" formControlName="rosterId">
+                  <button class="primary-btn mt-10" type="submit"
+                     [ngClass]="{'disabled' : isUpdating || rosterUpdateForm.invalid}"
+                     [disabled]="rosterUpdateForm.invalid || isUpdating">Update</button>
+               </form>
+            </div>
+         </div>
+      </ng-template>
+      <ng-template #rosterAdd>
+         <div class="p-8">
+            <div class="option-template-title">
+               <h3 class="m-0">Add a Roster</h3>
+               <button (click)="isRosterAdd = false; isOptionsPanelOpen = false;">
+                  <span class="material-symbols-outlined">
+                     close
+                  </span>
+               </button>
+            </div>
+            <app-rosters [userInfo]="userInfo" (newRosterAdd)="getRosters()"></app-rosters>
+         </div>
+      </ng-template>
+   </div>
+</section>

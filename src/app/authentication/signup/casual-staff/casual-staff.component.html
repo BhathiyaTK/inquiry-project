@@ -1,0 +1,27 @@
+<div *ngIf="isAlertShow" class="signup-alert"
+   [ngClass]="{'success': signupResponse.status === true, 'error': signupResponse.status === false}">
+   {{signupResponse.message}}
+</div>
+<form (ngSubmit)="casualStaffSignUp()" [formGroup]="casualStaffSignUpForm">
+   <div>
+      <label for="name" aria-hidden="true">Full Name</label>
+      <input type="name" formControlName="name" id="name">
+   </div>
+   <div>
+      <label for="email" aria-hidden="true">Email</label>
+      <input type="email" formControlName="email" id="email">
+   </div>
+   <div>
+      <label for="password" aria-hidden="true">Password</label>
+      <input type="password" formControlName="password" id="password">
+   </div>
+   <form [formGroup]="recaptchaForm" *ngIf="casualStaffSignUpForm.valid && !token">
+      <small>To continue, please check the below checkbox.</small>
+      <re-captcha formControlName="recaptcha" (resolved)="recaptchaResolved($event)" required></re-captcha>
+   </form>
+   <div *ngIf="token">
+      <button type="submit" class="primary-btn w-full"
+         [ngClass]="{'disabled' : isSignInProcessing || casualStaffSignUpForm.invalid}"
+         [disabled]="casualStaffSignUpForm.invalid || isSignInProcessing">Sign Up</button>
+   </div>
+</form>

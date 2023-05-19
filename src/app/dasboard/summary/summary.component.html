@@ -1,0 +1,16 @@
+<section class="h-full">
+   <h2 class="nunito" style="margin-top: 0; margin-bottom: 10px;">Dashboard</h2>
+   <div class="flex flex-wrap">
+      <div *ngFor="let item of dashboardItems" class="dashboard-item text-center w-25">
+         <div class="item-icon">
+            <span class="material-symbols-outlined">
+               {{item.icon}}
+            </span>
+         </div>
+         <div class="item-text">
+            <div class="nunito">{{item.value}}</div>
+            <span>{{item.title}}</span>
+         </div>
+      </div>
+   </div>
+</section>

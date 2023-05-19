@@ -1,0 +1,32 @@
+<app-dashboard-navbar></app-dashboard-navbar>
+<section class="container">
+   <div class="welcome-box">
+      <div class="welcome-content">
+         <div class="welcome-icon">
+            <img src="assets/images/1f44b.png" alt="Waving Hand">
+         </div>
+         <div class="welcome-text">
+            <small>Hello, Welcome back!</small>
+            <h1>{{currentUser.userName}}</h1>
+         </div>
+      </div>
+      <div class="user-details">
+         <div class="user-role text-center">{{currentUserRole}}</div>
+         <div class="user-email">{{currentUser.userEmail}}</div>
+      </div>
+   </div>
+   <section>
+      <div class="dashboard-content">
+         <div class="side-panel">
+            <ng-container *ngFor="let link of updatedLinks; let i = index;">
+               <a *ngIf="link.isVisible" [routerLink]="link.url" routerLinkActive="active">
+                  <div>{{link.title}}</div>
+               </a>
+            </ng-container>
+         </div>
+         <div class="main-content">
+            <router-outlet></router-outlet>
+         </div>
+      </div>
+   </section>
+</section>

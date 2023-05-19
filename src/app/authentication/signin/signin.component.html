@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+
+<div class="container content-area">
+   <div class="form-content">
+      <div class="form-area">
+         <div class="flex justify-between align-items-center form-title-wrapper">
+            <div class="form-title">
+               Sign In
+            </div>
+            <span *ngIf="signinProcessing" class="form-processing-alert">
+               Signin Processing...
+            </span>
+         </div>
+         <form [formGroup]="signinForm" (ngSubmit)="login()">
+            <div>
+               <label for="email" aria-hidden="true">Email</label>
+               <input type="email" formControlName="email" id="email">
+            </div>
+            <div>
+               <label for="password" aria-hidden="true">Password</label>
+               <input type="password" formControlName="password" id="password">
+            </div>
+            <form [formGroup]="recaptchaForm" *ngIf="signinForm.valid && !token">
+               <small>To continue, please check the below checkbox.</small>
+               <re-captcha formControlName="recaptcha" (resolved)="recaptchaResolved($event)" required></re-captcha>
+            </form>
+            <div *ngIf="token">
+               <button type="submit" class="primary-btn w-full" [ngClass]="{'disabled' : signinForm.invalid}"
+                  [disabled]="signinForm.invalid">Sign In</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
