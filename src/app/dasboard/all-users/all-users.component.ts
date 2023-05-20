@@ -34,11 +34,20 @@ export class AllUsersComponent implements OnInit {
   constructor(private indexService: IndexService, public auth: AuthService) { }
 
   ngOnInit(): void {
+    this.getAdminUsers();
     this.getPermanentUsers();
     this.getCasualUsers();
   }
 
-  getAdminUsers(): void { }
+  getAdminUsers(): void {
+    this.adminLoading = true;
+    this.indexService.get('api/User/admin-staff').subscribe((response) => {
+      this.adminUsersList = response;
+      this.adminLoading = false;
+    }, (error) => {
+      console.log(error);
+    });
+  }
 
   getPermanentUsers(): void {
     this.permanentLoading = true;

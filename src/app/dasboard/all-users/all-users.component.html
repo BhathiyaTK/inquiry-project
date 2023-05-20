@@ -1,7 +1,7 @@
 <section class="all-users-content w-full">
    <div [ngClass]="{'w-75' : isOptionsPanelOpen,'w-full' : !isOptionsPanelOpen}">
-      <section>
-         <div class="flex flex-row justify-between align-items-center">
+      <section *ngIf="adminUsersList.length > 0">
+         <div class="flex flex-row justify-between align-items-center mb-10">
             <h2 class="nunito" style="margin-top: 0; margin-bottom: 10px;">Admin Users</h2>
             <button class="primary-btn" (click)="showAddAdmin(); isOptionsPanelOpen = true;">Add an Admin</button>
          </div>
