@@ -35,7 +35,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: SummaryComponent },
       { path: 'all-users', component: AllUsersComponent },
-      { path: 'pay-slips', component: AllPaySlipsComponent, canActivate: [CasualGuard] },
+      { path: 'pay-slips', component: AllPaySlipsComponent },
       { path: 'rosters', component: AllRostersComponent },
       { path: 'documents', component: DocumentsComponent },
       { path: 'no-access', component: NoAccessComponent },

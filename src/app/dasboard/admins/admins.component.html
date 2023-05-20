@@ -1,0 +1,24 @@
+<div class="my-15">
+   <div *ngIf="isAlertShow" class="signup-alert"
+      [ngClass]="{'success': adminAddResponse.status === true, 'error': adminAddResponse.status === false}">
+      {{adminAddResponse.message}}
+   </div>
+   <form (ngSubmit)="addAdmin()" [formGroup]="adminForm">
+      <div>
+         <label for="name" aria-hidden="true">Full Name</label>
+         <input type="name" formControlName="name" id="name">
+      </div>
+      <div>
+         <label for="email" aria-hidden="true">Email</label>
+         <input type="email" formControlName="email" id="email">
+      </div>
+      <div>
+         <label for="password" aria-hidden="true">Password</label>
+         <input type="password" formControlName="password" id="password">
+      </div>
+      <div>
+         <button type="submit" class="primary-btn w-full" [ngClass]="{'disabled' : isAdding || adminForm.invalid}"
+            [disabled]="adminForm.invalid || isAdding">Add</button>
+      </div>
+   </form>
+</div>

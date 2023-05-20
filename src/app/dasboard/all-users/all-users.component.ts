@@ -12,6 +12,7 @@ export class AllUsersComponent implements OnInit {
   @ViewChild('payslips') payslips!: TemplateRef<any>;
   @ViewChild('roster') roster!: TemplateRef<any>;
   @ViewChild('feedback') feedback!: TemplateRef<any>;
+  @ViewChild('adminAdd') adminAdd!: TemplateRef<any>;
 
   adminUsersList: any[] = [];
   permanentUsersList: any[] = [];
@@ -24,6 +25,7 @@ export class AllUsersComponent implements OnInit {
   isPayslipClick: boolean = false;
   isRosterClick: boolean = false;
   isFeedbackClick: boolean = false;
+  isAdminClick: boolean = false;
   isOptionsPanelOpen: boolean = false;
   template!: TemplateRef<any>;
   userId!: string;
@@ -35,6 +37,8 @@ export class AllUsersComponent implements OnInit {
     this.getPermanentUsers();
     this.getCasualUsers();
   }
+
+  getAdminUsers(): void { }
 
   getPermanentUsers(): void {
     this.permanentLoading = true;
@@ -71,6 +75,11 @@ export class AllUsersComponent implements OnInit {
     this.isFeedbackClick = true;
     this.userInfo = { id: user.id, name: user.name };
     this.template = this.feedback;
+  }
+
+  showAddAdmin(): void {
+    this.isAdminClick = true;
+    this.template = this.adminAdd;
   }
 
 }

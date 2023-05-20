@@ -26,6 +26,7 @@ import { FeedbackComponent } from './dasboard/feedback/feedback.component';
 import { RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaFormsModule, RecaptchaModule } from "ng-recaptcha";
 import { environment } from 'src/environments/environment';
 import { SafePipe } from './pipes/safe.pipe';
+import { AdminsComponent } from './dasboard/admins/admins.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SafePipe } from './pipes/safe.pipe';
     AllPaySlipsComponent,
     AllRostersComponent,
     FeedbackComponent,
-    SafePipe
+    SafePipe,
+    AdminsComponent
   ],
   imports: [
     BrowserModule,

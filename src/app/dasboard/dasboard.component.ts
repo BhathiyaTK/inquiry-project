@@ -25,7 +25,7 @@ export class DasboardComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.auth.currentUser;
     this.sideLinks.forEach((link) => {
-      if (link.url === 'pay-slips' && this.auth.currentUser.userRole !== '2') {
+      if (link.url === 'pay-slips' && this.auth.currentUser.userRole === '1') {
         link.isVisible = false;
       }
       this.updatedLinks.push(link)

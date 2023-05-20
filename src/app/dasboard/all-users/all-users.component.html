@@ -1,7 +1,10 @@
 <section class="all-users-content w-full">
    <div [ngClass]="{'w-75' : isOptionsPanelOpen,'w-full' : !isOptionsPanelOpen}">
-      <section *ngIf="adminUsersList.length > 0">
-         <h2 class="nunito" style="margin-top: 0; margin-bottom: 10px;">Admin Users</h2>
+      <section>
+         <div class="flex flex-row justify-between align-items-center">
+            <h2 class="nunito" style="margin-top: 0; margin-bottom: 10px;">Admin Users</h2>
+            <button class="primary-btn" (click)="showAddAdmin(); isOptionsPanelOpen = true;">Add an Admin</button>
+         </div>
          <div class="flex flex-row justify-between align-items-center list-block"
             *ngFor="let aUser of adminUsersList; let i = index;">
             <div class="list-info">
@@ -35,7 +38,7 @@
                   </small>
                </div>
                <div class="list-options" *ngIf="auth.currentUser.userRole !== '2'">
-                  <button *ngIf="auth.currentUser.userRole === '2'"
+                  <button *ngIf="auth.currentUser.userRole === '0' || auth.currentUser.userRole === '2'"
                      (click)="showPayslips(pUser); isOptionsPanelOpen = true;" class="material-symbols-outlined"
                      title="Add Payslip">
                      post_add
@@ -44,7 +47,7 @@
                      class="material-symbols-outlined mx-20" title="Add Roster">
                      calendar_add_on
                   </button>
-                  <button *ngIf="auth.currentUser.userRole === '1'"
+                  <button *ngIf="auth.currentUser.userRole === '0' || auth.currentUser.userRole === '1'"
                      (click)="showFeedback(pUser); isOptionsPanelOpen = true;" class="material-symbols-outlined"
                      title="Add Feedback">
                      add_comment
@@ -72,7 +75,7 @@
                   </small>
                </div>
                <div class="list-options">
-                  <button *ngIf="auth.currentUser.userRole === '2'"
+                  <button *ngIf="auth.currentUser.userRole === '0' || auth.currentUser.userRole === '2'"
                      (click)="showPayslips(cUser); isOptionsPanelOpen = true;" class="material-symbols-outlined"
                      title="Add Payslip">
                      post_add
@@ -81,7 +84,7 @@
                      class="material-symbols-outlined mx-20" title="Add Roster">
                      calendar_add_on
                   </button>
-                  <button *ngIf="auth.currentUser.userRole === '1'"
+                  <button *ngIf="auth.currentUser.userRole === '0' || auth.currentUser.userRole === '1'"
                      (click)="showFeedback(cUser); isOptionsPanelOpen = true;" class="material-symbols-outlined"
                      title="Add Feedback">
                      add_comment
@@ -138,5 +141,19 @@
          </button>
       </div>
       <app-feedback [userInfo]="userInfo"></app-feedback>
+   </div>
+</ng-template>
+
+<ng-template #adminAdd>
+   <div class="p-8">
+      <div class="option-template-title">
+         <h3 class="m-0">Add an Admin</h3>
+         <button (click)="isOptionsPanelOpen = false; isFeedbackClick = !isFeedbackClick">
+            <span class="material-symbols-outlined">
+               close
+            </span>
+         </button>
+      </div>
+      <app-admins></app-admins>
    </div>
 </ng-template>
