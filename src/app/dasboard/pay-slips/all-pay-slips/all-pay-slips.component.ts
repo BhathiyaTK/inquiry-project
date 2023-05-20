@@ -28,7 +28,11 @@ export class AllPaySlipsComponent implements OnInit {
   constructor(private fb: FormBuilder, private indexService: IndexService, public auth: AuthService) { }
 
   ngOnInit(): void {
-    this.getPayslips();
+    if (this.auth.currentUser.userRole === '2') {
+      this.getPayslipsByUserId(this.auth.currentUser.userId);
+    } else {
+      this.getPayslips();
+    }
     for (let index = 1; index < 160; index++) {
       this.hoursList.push({ key: index, value: index });
     }
@@ -43,6 +47,18 @@ export class AllPaySlipsComponent implements OnInit {
     this.payslipsLoading = true;
     this.indexService.get('api/user/pay-slips').subscribe((response) => {
       this.payslipList = response;
+      this.payslipsLoading = false;
+    });
+  }
+
+  getPayslipsByUserId(id: any): void {
+    this.payslipsLoading = true;
+    this.indexService.get(`api/user/${parseInt(id, 10)}/pay-slips`).subscribe((response) => {
+      if (response.length < 2 || response.length === undefined) {
+        this.payslipList.push(response);
+      } else {
+        this.payslipList = response;
+      }
       this.payslipsLoading = false;
     });
   }
@@ -65,12 +81,15 @@ export class AllPaySlipsComponent implements OnInit {
       workHours: parseInt(this.paySlipUpdateForm.get('workHours')?.value, 10)
     };
     this.indexService.put(`api/user/${parseInt(this.paySlipUpdateForm.get('slipId')?.value, 10)}/pay-slips`, obj).subscribe((response) => {
-      console.log(response);
       this.payslipUpdateResponse = response;
       this.isAlertShow = true;
       this.paySlipUpdateForm.reset();
       this.isUpdating = false;
-      this.getPayslips();
+      if (this.auth.currentUser.userRole === '2') {
+        this.getPayslipsByUserId(this.auth.currentUser.userId);
+      } else {
+        this.getPayslips();
+      }
       setTimeout(() => {
         this.isAlertShow = false;
       }, 4000);

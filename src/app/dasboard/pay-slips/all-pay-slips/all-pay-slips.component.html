@@ -28,7 +28,8 @@
             </div>
             <div class="list-options">
                <h4 class="my-0 mx-20" style="color: #666;">Working Hours: {{ps.workHours}}</h4>
-               <button (click)="openRightPanel(ps, true); openEditSec = true; isPayslipAdd = false"
+               <button *ngIf="auth.currentUser.userRole === '2'"
+                  (click)="openRightPanel(ps, true); openEditSec = true; isPayslipAdd = false"
                   class="material-symbols-outlined" title="Edit Payslip">
                   edit
                </button>
@@ -86,7 +87,8 @@
                   </span>
                </button>
             </div>
-            <app-pay-slips [userInfo]="userInfo" (newPayslipAdd)="getPayslips()"></app-pay-slips>
+            <app-pay-slips [userInfo]="userInfo"
+               (newPayslipAdd)="auth.currentUser.userRole === '2' ? getPayslipsByUserId(auth.currentUser.userId) : getPayslips()"></app-pay-slips>
          </div>
       </ng-template>
    </div>
