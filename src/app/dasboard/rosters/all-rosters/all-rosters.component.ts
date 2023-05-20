@@ -63,11 +63,12 @@ export class AllRostersComponent implements OnInit {
   getRostersByUserId(id: any): void {
     this.rostersLoading = true;
     this.indexService.get(`api/user/${parseInt(id, 10)}/rosters`).subscribe((response) => {
-      if (response.length < 2 || response.length === undefined) {
-        this.rostersList.push(response);
-      } else {
-        this.rostersList = response;
-      }
+      // if (response.length < 2 || response.length === undefined) {
+      //   this.rostersList.push(response);
+      //   console.log(this.rostersList)
+      // } else {
+      // }
+      this.rostersList = response;
       this.rostersLoading = false;
     });
   }

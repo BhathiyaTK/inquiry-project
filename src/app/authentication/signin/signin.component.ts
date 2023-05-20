@@ -14,6 +14,7 @@ export class SigninComponent implements OnInit {
   signinForm!: FormGroup;
   recaptchaForm!: FormGroup;
   signinProcessing: boolean = false;
+  errorAlert: any = { status: false, message: '' };
   token: string | undefined;
 
   constructor(
@@ -46,6 +47,8 @@ export class SigninComponent implements OnInit {
       this.route.navigate([returnUrl || '/main']);
       this.signinProcessing = false;
     }, (error) => {
+      this.signinProcessing = false;
+      this.errorAlert = { status: true, message: 'Sign in failed! User might be not verified or may be a network issue.' }
       console.log(error);
     });
   }

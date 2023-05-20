@@ -11,6 +11,14 @@
                Signin Processing...
             </span>
          </div>
+         <div class="flex flex-row justify-between align-items-center p-15 my-15"
+            style="color: white; background-color: red;" *ngIf="errorAlert.status">
+            <small class="mr-10">{{errorAlert.message}}</small>
+            <span class="material-symbols-outlined" (click)="errorAlert.status = !errorAlert.status"
+               style="cursor: pointer">
+               cancel
+            </span>
+         </div>
          <form [formGroup]="signinForm" (ngSubmit)="login()">
             <div>
                <label for="email" aria-hidden="true">Email</label>
