@@ -1,10 +1,11 @@
 <section>
    <h2 class="nunito" style="margin-top: 0; margin-bottom: 10px;">Documents</h2>
    <div class="flex flex-row">
-      <div class="w-80" style="margin-right: 15px;">
+      <div [ngClass]="{'w-80' : auth.currentUser.userRole !== '2', 'w-full' : auth.currentUser.userRole === '2'}"
+         style="margin-right: 15px;">
          <router-outlet></router-outlet>
       </div>
-      <div class="w-20 doc-link-area">
+      <div class="w-20 doc-link-area" *ngIf="auth.currentUser.userRole !== '2'">
          <a routerLink="your-documents" routerLinkActive="active" class="doc-nav-links">
             <div>Your Documents</div>
          </a>
