@@ -88,7 +88,8 @@
                   </span>
                </button>
             </div>
-            <app-rosters [userInfo]="userInfo" (newRosterAdd)="getRosters()"></app-rosters>
+            <app-rosters [userInfo]="userInfo"
+               (newRosterAdd)="auth.currentUser.userRole === '2' ? getRostersByUserId(auth.currentUser.userId) : getAllRosters()"></app-rosters>
          </div>
       </ng-template>
    </div>

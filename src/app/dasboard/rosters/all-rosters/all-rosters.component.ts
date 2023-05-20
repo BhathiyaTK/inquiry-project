@@ -27,10 +27,19 @@ export class AllRostersComponent implements OnInit {
   isRosterAdd: boolean = false;
   userInfo: any = {}
 
-  constructor(private fb: FormBuilder, private indexService: IndexService, private commonService: CommonService, public auth: AuthService) { }
+  constructor(
+    private fb: FormBuilder,
+    private indexService: IndexService,
+    private commonService: CommonService,
+    public auth: AuthService
+  ) { }
 
   ngOnInit(): void {
-    this.getRosters();
+    if (this.auth.currentUser.userRole === '2') {
+      this.getRostersByUserId(this.auth.currentUser.userId);
+    } else {
+      this.getAllRosters();
+    }
 
     this.rosterUpdateForm = this.fb.group({
       fromDateTime: ['', [Validators.required]],
@@ -42,11 +51,23 @@ export class AllRostersComponent implements OnInit {
     this.maxDate = new Date(new Date(this.commonService.setWeekStartingDate(new Date())).getTime() + 12096e5).toJSON().slice(0, -5);
   }
 
-  getRosters(): void {
+  getAllRosters(): void {
     this.rostersLoading = true;
     let newlist: any[] = [];
-    this.indexService.get(`api/user/${parseInt(this.commonService.getUserId(), 10)}/rosters`).subscribe((response) => {
+    this.indexService.get(`api/user/rosters`).subscribe((response) => {
       this.rostersList = response;
+      this.rostersLoading = false;
+    });
+  }
+
+  getRostersByUserId(id: any): void {
+    this.rostersLoading = true;
+    this.indexService.get(`api/user/${parseInt(id, 10)}/rosters`).subscribe((response) => {
+      if (response.length < 2 || response.length === undefined) {
+        this.rostersList.push(response);
+      } else {
+        this.rostersList = response;
+      }
       this.rostersLoading = false;
     });
   }
@@ -78,7 +99,11 @@ export class AllRostersComponent implements OnInit {
       this.isAlertShow = true;
       this.rosterUpdateForm.reset();
       this.isUpdating = false;
-      this.getRosters();
+      if (this.auth.currentUser.userRole === '2') {
+        this.getRostersByUserId(this.auth.currentUser.userId);
+      } else {
+        this.getAllRosters();
+      }
       setTimeout(() => {
         this.isAlertShow = false;
       }, 4000);
