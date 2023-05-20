@@ -1,0 +1,28 @@
+<div class="w-full">
+   <div *ngIf="allDocumentList.length === 0">
+      <div>No documents found.</div>
+      <small>Upload documents to show them here.</small>
+   </div>
+   <div class="flex flex-row w-full">
+      <div [ngClass]="{'w-60' : selectFileSrc, 'w-full' : !selectFileSrc}">
+         <div *ngIf="allDocumentList.length > 0" class="flex flex-row flex-wrap w-full">
+            <div *ngFor="let file of allDocumentList" class="single-file text-center w-120px h-100px"
+               [ngClass]="{'w-120px' : !selectFileSrc, 'w-25': selectFileSrc}"
+               (click)="getSingleDocument(file.id, file.documentName)" style="cursor: pointer">
+               <!-- <a [href]="file.documentLink" [title]="file.documentName" download>
+                     </a> -->
+               <span class="material-symbols-outlined" style="font-size: 60px;">
+                  description
+               </span>
+               <div><small>{{formatName(file.documentName, 9)}}</small></div>
+            </div>
+         </div>
+      </div>
+      <div *ngIf="selectFileSrc" class="w-40 p-15" style="border: 1px solid #ccc" [ngClass]="{'w-40' : selectFileSrc}">
+         <div class="preview mb-10">
+            <iframe [src]="selectFileSrc | safe" width="100%" height="500px"></iframe>
+         </div>
+         <button (click)="downloadDocument(selectFileSrc)" class="primary-btn">Download</button>
+      </div>
+   </div>
+</div>

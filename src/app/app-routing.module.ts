@@ -15,6 +15,8 @@ import { AllPaySlipsComponent } from './dasboard/pay-slips/all-pay-slips/all-pay
 import { AllRostersComponent } from './dasboard/rosters/all-rosters/all-rosters.component';
 import { CasualGuard } from './services/guards/casual.guard';
 import { PermanentGuard } from './services/guards/permanent.guard';
+import { YourDocsComponent } from './dasboard/documents/your-docs/your-docs.component';
+import { AllDocsComponent } from './dasboard/documents/all-docs/all-docs.component';
 
 const routes: Routes = [
   { path: '', component: SigninComponent },
@@ -37,7 +39,15 @@ const routes: Routes = [
       { path: 'all-users', component: AllUsersComponent },
       { path: 'pay-slips', component: AllPaySlipsComponent },
       { path: 'rosters', component: AllRostersComponent },
-      { path: 'documents', component: DocumentsComponent },
+      {
+        path: 'documents',
+        component: DocumentsComponent,
+        children: [
+          { path: '', redirectTo: 'your-documents', pathMatch: 'full' },
+          { path: 'your-documents', component: YourDocsComponent },
+          { path: 'all-documents', component: AllDocsComponent }
+        ]
+      },
       { path: 'no-access', component: NoAccessComponent },
       { path: 'not-found', component: NotFoundComponent }
     ]

@@ -3,3 +3,22 @@
    border: 1px solid #ccc;
    padding: 15px;
 }
+
+.doc-link-area {
+   border: 1px solid #ccc;
+   height: fit-content !important;
+}
+
+.doc-nav-links {
+   text-decoration: none;
+}
+
+.doc-nav-links.active>div {
+   font-weight: 600;
+   color: white;
+   background-color: blueviolet;
+}
+
+.doc-nav-links>div {
+   padding: 20px;
+}

@@ -27,6 +27,8 @@ import { RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaFormsModule, RecaptchaM
 import { environment } from 'src/environments/environment';
 import { SafePipe } from './pipes/safe.pipe';
 import { AdminsComponent } from './dasboard/admins/admins.component';
+import { YourDocsComponent } from './dasboard/documents/your-docs/your-docs.component';
+import { AllDocsComponent } from './dasboard/documents/all-docs/all-docs.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { AdminsComponent } from './dasboard/admins/admins.component';
     AllRostersComponent,
     FeedbackComponent,
     SafePipe,
-    AdminsComponent
+    AdminsComponent,
+    YourDocsComponent,
+    AllDocsComponent
   ],
   imports: [
     BrowserModule,
