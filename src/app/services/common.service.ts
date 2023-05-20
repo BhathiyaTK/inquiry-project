@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
 
+  private data = new BehaviorSubject('');
+  data$ = this.data.asObservable();
+
   token: any = localStorage.getItem('user-JWT');
 
   constructor() { }
+
+  changeAlertCount(data: string) {
+    this.data.next(data);
+  }
 
   setWeekStartingDate(d: string | number | Date): any {
     d = new Date(d);

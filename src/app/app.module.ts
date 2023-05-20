@@ -29,6 +29,7 @@ import { SafePipe } from './pipes/safe.pipe';
 import { AdminsComponent } from './dasboard/admins/admins.component';
 import { YourDocsComponent } from './dasboard/documents/your-docs/your-docs.component';
 import { AllDocsComponent } from './dasboard/documents/all-docs/all-docs.component';
+import { NotificationsComponent } from './dasboard/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { AllDocsComponent } from './dasboard/documents/all-docs/all-docs.compone
     SafePipe,
     AdminsComponent,
     YourDocsComponent,
-    AllDocsComponent
+    AllDocsComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

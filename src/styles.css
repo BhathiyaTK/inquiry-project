@@ -20,6 +20,22 @@ body {
    font-family: 'Nunito', sans-serif;
 }
 
+.weight-500 {
+   font-weight: 500;
+}
+
+.weight-600 {
+   font-weight: 600;
+}
+
+.weight-700 {
+   font-weight: 700;
+}
+
+.weight-800 {
+   font-weight: 800;
+}
+
 .container {
    width: 80%;
    margin: 0 auto;
@@ -261,6 +277,14 @@ body {
 
 .mr-5 {
    margin-right: 5px;
+}
+
+.mr-10 {
+   margin-right: 10px;
+}
+
+.mr-15 {
+   margin-right: 15px;
 }
 
 /* paddings */

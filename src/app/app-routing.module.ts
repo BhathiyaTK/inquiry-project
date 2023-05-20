@@ -17,6 +17,7 @@ import { CasualGuard } from './services/guards/casual.guard';
 import { PermanentGuard } from './services/guards/permanent.guard';
 import { YourDocsComponent } from './dasboard/documents/your-docs/your-docs.component';
 import { AllDocsComponent } from './dasboard/documents/all-docs/all-docs.component';
+import { NotificationsComponent } from './dasboard/notifications/notifications.component';
 
 const routes: Routes = [
   { path: '', component: SigninComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
           { path: 'all-documents', component: AllDocsComponent }
         ]
       },
+      { path: 'notifications', component: NotificationsComponent },
       { path: 'no-access', component: NoAccessComponent },
       { path: 'not-found', component: NotFoundComponent }
     ]

@@ -20,7 +20,11 @@
          <div class="side-panel">
             <ng-container *ngFor="let link of updatedLinks; let i = index;">
                <a *ngIf="link.isVisible" [routerLink]="link.url" routerLinkActive="active">
-                  <div>{{link.title}}</div>
+                  <div class="flex flex-row justify-between align-items-center">
+                     <span style="margin-right: 20px;">{{link.title}}</span>
+                     <div *ngIf="alerts && link.url === 'notifications'" class="notifcation-count-badge">{{alerts}}
+                     </div>
+                  </div>
                </a>
             </ng-container>
          </div>

@@ -1,0 +1,75 @@
+<section>
+   <div class="flex flex-row">
+      <div class="w-50 p-15" style="border: 1px solid #ccc">
+         <div class="flex flex-row justify-between align-items-center mb-10 pb-10"
+            [style.border-bottom]="'1px solid #ccc'">
+            <h2 class="nunito my-0">Notifications ({{newList.length}})</h2>
+         </div>
+         <div *ngIf="notoficationsLoading" class="my-15">
+            loading...
+         </div>
+         <div class="w-full">
+            <div *ngIf="notificationsList.length === 0 && !notoficationsLoading" class="w-75 my-15">
+               No notifications found.
+            </div>
+            <div *ngIf="newList.length > 0" class="w-full">
+               <h4 style="color: gray;">Unread Notifications</h4>
+               <div class="flex flex-row justify-between align-items-center list-block"
+                  *ngFor="let notification of newList; let i = index;" style="background-color: rgb(214, 248, 214)">
+                  <div class="list-info">
+                     <span class="m-0" [ngClass]="{'weight-500' : notification.status === 1}"
+                        style="font-size: 16px;">{{notification.notificationMessage}}</span>
+                  </div>
+                  <div class="list-options">
+                     <button (click)="updateNotificationStatus(notification)" class="flex flex-row"
+                        title="Mark as Read">
+                        <span class="material-symbols-outlined mr-5">done</span>
+                        <span style="font-size: 14px; padding-top: 3px;">Mark as read</span>
+                     </button>
+                  </div>
+               </div>
+            </div>
+            <div *ngIf="readList.length > 0" class="w-full">
+               <h4 style="color: gray;">History</h4>
+               <div class="flex flex-row justify-between align-items-center list-block"
+                  *ngFor="let notification of readList; let i = index;">
+                  <div class="list-info">
+                     <span class="m-0" style="font-size: 16px;">{{notification.notificationMessage}}</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="w-50 p-15" style="border: 1px solid #ccc">
+         <div class="flex flex-row justify-between align-items-center mb-10 pb-10"
+            [style.border-bottom]="'1px solid #ccc'">
+            <h2 class="nunito my-0">Requests ({{notverifiedUsersList.length}})</h2>
+         </div>
+         <div *ngIf="notVerifiedLoading" class="my-15">
+            loading...
+         </div>
+         <div class="w-full">
+            <div *ngIf="notverifiedUsersList.length === 0 && !notVerifiedLoading" class="w-75 my-15">
+               No requests found.
+            </div>
+            <div class="flex flex-row justify-between align-items-center list-block"
+               *ngFor="let user of notverifiedUsersList; let i = index;" style="background-color: rgb(239, 247, 196)">
+               <div class="list-info">
+                  <span class="m-0" style="font-size: 16px; font-weight: 500;">{{user.name | titlecase}}</span>
+                  <div style="font-size: 13px;">{{user.email}}</div>
+               </div>
+               <div class="list-options">
+                  <button (click)="verifyUser(user)" class="flex flex-row mr-10" title="Verify request">
+                     <span class="material-symbols-outlined mr-5">done</span>
+                     <span style="font-size: 14px; padding-top: 3px;">Verify</span>
+                  </button>
+                  <button (click)="rejectUser(user)" class="flex flex-row" title="Reject request">
+                     <span class="material-symbols-outlined mr-5">close</span>
+                     <span style="font-size: 14px; padding-top: 3px;">Reject</span>
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
