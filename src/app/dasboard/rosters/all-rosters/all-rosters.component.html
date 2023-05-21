@@ -25,10 +25,12 @@
                   <small style="color: #666;">{{ps.email}}</small>
                </div>
                <div class="mx-20">
-                  <small>From: <strong>{{ps.fromDateTime | date:'d/MM/yyyy, h:mm a'}}</strong></small>
-               </div>
-               <div class="mx-20">
+                  <small>From: <strong>{{ps.fromDateTime | date:'d/MM/yyyy, h:mm a'}}</strong></small><br>
                   <small>To: <strong>{{ps.toDateTime | date:'d/MM/yyyy, h:mm a'}}</strong></small>
+               </div>
+               <div class="mx-20" *ngIf="ps.subject || ps.unit">
+                  <small *ngIf="ps.subject">Class: <strong>{{ps.subject}}</strong></small><br>
+                  <small *ngIf="ps.unit">Unit: <strong>{{ps.unit}}</strong></small>
                </div>
             </div>
             <div class="list-options">
@@ -64,6 +66,27 @@
             </div>
             <div class="pb-15">
                <form (ngSubmit)="updateRoster()" [formGroup]="rosterUpdateForm">
+                  <label for="subject">Class</label>
+                  <select formControlName="subject" id="subject">
+                     <option value="">-- Select --</option>
+                     <option value="Web Development">Web Development</option>
+                     <option value="Software Engineering">Software Engineering</option>
+                     <option value="Database Management">Database Management</option>
+                     <option value="Human Computer Interactions">Human Computer Interactions</option>
+                     <option value="Game Development">Game Development</option>
+                     <option value="Cyber Security">Cyber Security</option>
+                  </select>
+                  <label for="unit">Unit</label>
+                  <select formControlName="unit" id="unit">
+                     <option value="">-- Select --</option>
+                     <option value="Unit 01">Unit 01</option>
+                     <option value="Unit 02">Unit 02</option>
+                     <option value="Unit 03">Unit 03</option>
+                     <option value="Unit 04">Unit 04</option>
+                     <option value="Unit 05">Unit 05</option>
+                     <option value="Unit 06">Unit 06</option>
+                     <option value="Unit 07">Unit 07</option>
+                  </select>
                   <label for="fromDateTime">From:</label>
                   <input type="datetime-local" formControlName="fromDateTime" id="fromDateTime" class="my-8"
                      [min]="minDate" [max]="maxDate">

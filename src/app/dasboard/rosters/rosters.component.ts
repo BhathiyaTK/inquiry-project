@@ -27,6 +27,8 @@ export class RostersComponent implements OnInit {
     this.maxDate = new Date(new Date(this.commonService.setWeekStartingDate(new Date())).getTime() + 12096e5).toJSON().slice(0, -5);
 
     this.rosterForm = this.fb.group({
+      subject: ['', [Validators.required]],
+      unit: ['', [Validators.required]],
       fromDateTime: ['', [Validators.required]],
       toDateTime: ['', [Validators.required]]
     });
@@ -34,6 +36,8 @@ export class RostersComponent implements OnInit {
 
   createRosterList(roster: any): void {
     const formatterRoster = {
+      subject: this.rosterForm.get('subject')?.value,
+      unit: this.rosterForm.get('unit')?.value,
       fromDateTime: new Date(roster.fromDateTime).toISOString(),
       toDateTime: new Date(roster.toDateTime).toISOString()
     }

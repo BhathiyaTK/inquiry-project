@@ -42,6 +42,8 @@ export class AllRostersComponent implements OnInit {
     }
 
     this.rosterUpdateForm = this.fb.group({
+      subject: ['', [Validators.required]],
+      unit: ['', [Validators.required]],
       fromDateTime: ['', [Validators.required]],
       toDateTime: ['', [Validators.required]],
       rosterId: ['', [Validators.required]],
@@ -78,6 +80,8 @@ export class AllRostersComponent implements OnInit {
     if (isEdit) {
       this.openEditSec = true;
       this.selectedRoster = obj;
+      this.rosterUpdateForm.get('subject')?.setValue(obj.subject);
+      this.rosterUpdateForm.get('unit')?.setValue(obj.unit);
       this.rosterUpdateForm.get('fromDateTime')?.setValue(this.setDateTimeLocalFormat(obj.fromDateTime));
       this.rosterUpdateForm.get('toDateTime')?.setValue(this.setDateTimeLocalFormat(obj.toDateTime));
       this.rosterUpdateForm.get('rosterId')?.setValue(obj.id);
@@ -90,6 +94,8 @@ export class AllRostersComponent implements OnInit {
   updateRoster(): void {
     const obj = {
       dateTime: {
+        subject: this.rosterUpdateForm.get('subject')?.value,
+        unit: this.rosterUpdateForm.get('unit')?.value,
         fromDateTime: new Date(this.rosterUpdateForm.get('fromDateTime')?.value).toISOString(),
         toDateTime: new Date(this.rosterUpdateForm.get('toDateTime')?.value).toISOString()
       }
